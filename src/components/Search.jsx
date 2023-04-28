@@ -1,24 +1,22 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Geocode from "react-geocode";
-import SearchForm from "./SearchForm";
+import PropTypes from "prop-types";
 
-function Search() {
+function Search(props) {
   const [weatherData, setWeatherData] = useState(null);
-  const [lat, setLat] = useState();
-  const [lon, setLon] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
       const params = {
-        lat: "35.5",
-        lon: "-78.5",
+        lat: props.lat,
+        lon: props.lon,
         key: "ecd6952a36304cad817eb19b87da7bfa",
       };
 
       try {
         const response = await axios.get(
-          "http://api.weatherbit.io/v2.0/current"
+          "http://api.weatherbit.io/v2.0/current",
+          { params }
         );
         setWeatherData(response.data);
       } catch (err) {
@@ -26,22 +24,10 @@ function Search() {
       }
     };
 
-    fetchData();
-  }, []);
-
-  const handleSearch = async (query) => {
-    try {
-      const response = await axios.get(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${query}&key=AIzaSyBIyET3ksgL5bSzBl8YhzW-3kpdbW_7VmQ`
-      );
-      const result = response.data.result[0];
-      const { lat, lng } = result.geometry.location;
-      setLat(lat);
-      setLon(lng);
-    } catch (error) {
-      console.log(error);
+    if (props.lat && props.lon) {
+      fetchData();
     }
-  };
+  }, [props.lat, props.lon]);
 
   const getIconUrl = (iconCode) => {
     return `https://www.weatherbit.io/static/img/icons/${iconCode}.png`;
@@ -50,6 +36,8 @@ function Search() {
   return (
     <div>
       <div>
+        {console.log(props.lat)}
+        {console.log(props.lon)}
         {weatherData ? (
           <>
             <h1>Current Weather</h1>
@@ -64,19 +52,19 @@ function Search() {
           <div>Loading...</div>
         )}
       </div>
-      <div>
-        <h1>Search for a city</h1>
-        <SearchForm onSearch={handleSearch} />
-        {location && (
-          <p>
-            The latitude is {lat} and the longitude is {lon}.
-          </p>
-        )}
-      </div>
+      <div></div>
     </div>
   );
 }
 
-Geocode.setApiKey("AIzaSyBIyET3ksgL5bSzBl8YhzW-3kpdbW_7VmQ");
+Search.propTypes = {
+  lat: PropTypes.number,
+  lon: PropTypes.number,
+};
+
+Search.defaultProps = {
+  lat: 0,
+  lon: 0,
+};
 
 export default Search;
