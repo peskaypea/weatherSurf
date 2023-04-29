@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
+import WeatherCard from "./Weather/WeatherCard";
 
 function Search(props) {
   const [weatherData, setWeatherData] = useState(null);
@@ -40,16 +41,15 @@ function Search(props) {
         {console.log(props.lon)}
         {weatherData ? (
           <>
-            <h1>Current Weather</h1>
-            <p>Temperature: {weatherData.data[0].temp}</p>
-            <p>
-              Weather Description: {weatherData.data[0].weather.description}
-            </p>
-            <p>City: {weatherData.data[0].city_name}</p>
-            <img src={getIconUrl(weatherData.data[0].weather.icon)} alt="" />
+            <WeatherCard
+              cityTemperature={weatherData.data[0].temp}
+              cityDescription={weatherData.data[0].weather.description}
+              cityName={weatherData.data[0].city_name}
+              weatherImg={getIconUrl(weatherData.data[0].weather.icon)}
+            />
           </>
         ) : (
-          <div>Loading...</div>
+          <div />
         )}
       </div>
       <div></div>
