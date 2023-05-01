@@ -7,12 +7,25 @@ const WeatherCard = ({
   weatherImg,
 }) => {
   return (
-    <div>
-      <h1>Current Weather</h1>
-      <p>Temperature: {cityTemperature}</p>
-      <p>Weather Description: {cityDescription}</p>
-      <p>City: {cityName}</p>
-      <img src={weatherImg} alt="weatherImage" />
+    <div className="pt-5">
+      <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex">
+        <a href="#">
+          <img className="w-20 center" src={weatherImg} alt="weatherImage" />
+        </a>
+        <div className="p-5">
+          <a href="#">
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+              {cityName}
+            </h5>
+          </a>
+          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            Temperature: {cityTemperature}°C
+          </p>
+          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            Description: {cityDescription}
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
