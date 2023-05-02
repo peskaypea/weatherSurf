@@ -12,14 +12,16 @@ function Search(props) {
         lat: props.lat,
         lon: props.lon,
         key: "ecd6952a36304cad817eb19b87da7bfa",
+        day: 7,
       };
 
       try {
         const response = await axios.get(
-          "http://api.weatherbit.io/v2.0/current",
+          "http://api.weatherbit.io/v2.0/forecast/daily",
           { params }
         );
         setWeatherData(response.data);
+        console.log(response.data);
       } catch (err) {
         console.log(err); // Error handle for API response
       }
@@ -41,10 +43,26 @@ function Search(props) {
         {console.log(props.lon)}
         {weatherData ? (
           <>
+            {console.log(weatherData)}
             <WeatherCard
               cityTemperature={weatherData.data[0].temp}
               cityDescription={weatherData.data[0].weather.description}
               cityName={weatherData.data[0].city_name}
+              date={weatherData.data[0].datetime}
+              weatherImg={getIconUrl(weatherData.data[0].weather.icon)}
+            />
+            <WeatherCard
+              cityTemperature={weatherData.data[1].temp}
+              cityDescription={weatherData.data[1].weather.description}
+              cityName={weatherData.data[1].city_name}
+              date={weatherData.data[1].datetime}
+              weatherImg={getIconUrl(weatherData.data[0].weather.icon)}
+            />
+            <WeatherCard
+              cityTemperature={weatherData.data[2].temp}
+              cityDescription={weatherData.data[2].weather.description}
+              cityName={weatherData.data[2].city_name}
+              date={weatherData.data[2].datetime}
               weatherImg={getIconUrl(weatherData.data[0].weather.icon)}
             />
           </>

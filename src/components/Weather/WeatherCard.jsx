@@ -5,6 +5,7 @@ const WeatherCard = ({
   cityDescription,
   cityName,
   weatherImg,
+  date,
 }) => {
   return (
     <div className="pt-5">
@@ -24,6 +25,9 @@ const WeatherCard = ({
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
             Description: {cityDescription}
           </p>
+          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            Date: {date.split("-").reverse().join("-")}
+          </p>
         </div>
       </div>
     </div>
@@ -35,6 +39,7 @@ WeatherCard.propTypes = {
   cityDescription: PropTypes.string.isRequired,
   cityName: PropTypes.string.isRequired,
   weatherImg: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
 };
 
 export default WeatherCard;
