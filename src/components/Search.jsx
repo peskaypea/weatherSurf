@@ -13,7 +13,7 @@ function Search({ lat, lon }) {
       const params = {
         lat: lat,
         lon: lon,
-        key: "ecd6952a36304cad817eb19b87da7bfa",
+        key: import.meta.env.VITE_API_KEY,
         day: 7,
       };
 
@@ -44,7 +44,6 @@ function Search({ lat, lon }) {
         <div></div>
       ) : weatherData ? (
         <>
-          {console.log(weatherData)}
           <WeatherCard
             cityTemperature={weatherData.data[0].temp}
             cityDescription={weatherData.data[0].weather.description}
