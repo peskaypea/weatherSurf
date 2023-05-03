@@ -2,15 +2,17 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import WeatherCard from "./Weather/WeatherCard";
+import WeatherCardTile from "./Weather/WeatherCardTile";
 
-function Search(props) {
+function Search({ lat, lon }) {
   const [weatherData, setWeatherData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       const params = {
-        lat: props.lat,
-        lon: props.lon,
+        lat: lat,
+        lon: lon,
         key: "ecd6952a36304cad817eb19b87da7bfa",
         day: 7,
       };
@@ -21,16 +23,16 @@ function Search(props) {
           { params }
         );
         setWeatherData(response.data);
-        console.log(response.data);
       } catch (err) {
         console.log(err); // Error handle for API response
       }
+      setLoading(false);
     };
 
-    if (props.lat && props.lon) {
+    if (lat && lon) {
       fetchData();
     }
-  }, [props.lat, props.lon]);
+  }, [lat, lon]);
 
   const getIconUrl = (iconCode) => {
     return `https://www.weatherbit.io/static/img/icons/${iconCode}.png`;
@@ -38,39 +40,46 @@ function Search(props) {
 
   return (
     <div>
-      <div>
-        {console.log(props.lat)}
-        {console.log(props.lon)}
-        {weatherData ? (
-          <>
-            {console.log(weatherData)}
-            <WeatherCard
-              cityTemperature={weatherData.data[0].temp}
-              cityDescription={weatherData.data[0].weather.description}
-              cityName={weatherData.data[0].city_name}
-              date={weatherData.data[0].datetime}
-              weatherImg={getIconUrl(weatherData.data[0].weather.icon)}
-            />
-            <WeatherCard
-              cityTemperature={weatherData.data[1].temp}
-              cityDescription={weatherData.data[1].weather.description}
-              cityName={weatherData.data[1].city_name}
-              date={weatherData.data[1].datetime}
-              weatherImg={getIconUrl(weatherData.data[0].weather.icon)}
-            />
-            <WeatherCard
-              cityTemperature={weatherData.data[2].temp}
-              cityDescription={weatherData.data[2].weather.description}
-              cityName={weatherData.data[2].city_name}
-              date={weatherData.data[2].datetime}
-              weatherImg={getIconUrl(weatherData.data[0].weather.icon)}
-            />
-          </>
-        ) : (
-          <div />
-        )}
-      </div>
-      <div></div>
+      {loading ? (
+        <div></div>
+      ) : weatherData ? (
+        <>
+          {console.log(weatherData)}
+          <WeatherCard
+            cityTemperature={weatherData.data[0].temp}
+            cityDescription={weatherData.data[0].weather.description}
+            cityName={weatherData.city_name}
+            date={weatherData.data[0].datetime}
+            weatherImg={getIconUrl(weatherData.data[0].weather.icon)}
+          />
+          <div className="flex justify-between">
+            {weatherData.data.slice(1, 3).map((weather, index) => (
+              <WeatherCardTile
+                key={index}
+                cityTemperature={weather.temp}
+                cityDescription={weather.weather.description}
+                cityName={weather.city_name}
+                date={weather.datetime}
+                weatherImg={getIconUrl(weather.weather.icon)}
+              />
+            ))}
+          </div>
+          <div className="flex justify-between">
+            {weatherData.data.slice(3, 5).map((weather, index) => (
+              <WeatherCardTile
+                key={index}
+                cityTemperature={weather.temp}
+                cityDescription={weather.weather.description}
+                cityName={weather.city_name}
+                date={weather.datetime}
+                weatherImg={getIconUrl(weather.weather.icon)}
+              />
+            ))}
+          </div>
+        </>
+      ) : (
+        <div>Unable to fetch weather data.</div>
+      )}
     </div>
   );
 }

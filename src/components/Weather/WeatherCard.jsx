@@ -9,24 +9,24 @@ const WeatherCard = ({
 }) => {
   return (
     <div className="pt-5">
-      <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex">
+      <div className="max-w-m bg-gradient-to-tr from-blue-600 to-blue-400 text-white shadow-blue-500/40 shadow-lg dark:bg-gray-800 dark:border-gray-700 rounded-lg flex">
         <a href="#">
-          <img className="w-20 center" src={weatherImg} alt="weatherImage" />
+          <img className="w-20 ml-10" src={weatherImg} alt="weatherImage" />
         </a>
-        <div className="p-5">
+        <div className="p-5 center">
           <a href="#">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-700 dark:text-white">
               {cityName}
             </h5>
           </a>
-          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            Temperature: {cityTemperature}°C
+          <p className="mb-3 font-normal  dark:text-gray-400">
+            {cityTemperature}°C
           </p>
-          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            Description: {cityDescription}
+          <p className="mb-3 font-normal  dark:text-gray-400">
+            {cityDescription}
           </p>
-          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            Date: {date.split("-").reverse().join("-")}
+          <p className="mb-3 font-normal  dark:text-gray-400">
+            {date.split("-").reverse().join("-")}
           </p>
         </div>
       </div>
