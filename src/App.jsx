@@ -1,7 +1,7 @@
 import "./App.css";
 import NavBar from "./components/NavBar";
 import SearchForm from "./components/SearchForm";
-import { ThemeProvider } from "./components/themeContent";
+import { ThemeProvider } from "./components/UI/themeContent";
 
 function App() {
   return (

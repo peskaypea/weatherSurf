@@ -1,6 +1,6 @@
 import { useState } from "react";
 import logo from "../assets/logo.png";
-import Toggle from "./toggle";
+import Toggle from "./UI/Toggle";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,7 +15,7 @@ const NavBar = () => {
           <a href="https://flowbite.com/" className="flex items-center">
             <img src={logo} className="h-8 mr-3" alt="Flowbite Logo" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              Flowbite
+              Flowswell
             </span>
           </a>
           <button
