@@ -4,6 +4,11 @@ export default {
   darkMode: "class",
   theme: {
     extend: {},
+    fontFamily: {
+      sans: ["Roboto"],
+      display: ["Oswald"],
+      body: ["Open Sans"],
+    },
   },
   plugins: [],
 };
