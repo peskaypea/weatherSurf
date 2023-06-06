@@ -1,6 +1,6 @@
 import "./App.css";
-import Home from "./components/Home";
-import SearchForm from "./components/SearchForm";
+import Home from "./pages/Home";
+import WeatherWidget from "./pages/WeatherWidget";
 import { ThemeProvider } from "./components/UI/themeContent";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 
@@ -11,7 +11,7 @@ function App() {
         <Router>
           <Routes>
             <Route exact path="/" element={<Home />} />
-            <Route exact path="/weather" element={<SearchForm />} />
+            <Route exact path="/weather" element={<WeatherWidget />} />
           </Routes>
         </Router>
       </div>
