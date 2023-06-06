@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import WeatherCard from "./Weather/WeatherCard";
-import WeatherCardTile from "./Weather/WeatherCardTile";
 
-function Search({ lat, lon }) {
+function Search({ lat, lon, cityName }) {
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -13,16 +11,15 @@ function Search({ lat, lon }) {
       const params = {
         lat: lat,
         lon: lon,
-        key: import.meta.env.VITE_API_KEY,
-        day: 7,
+        appid: import.meta.env.VITE_API_KEY,
       };
 
       try {
         const response = await axios.get(
-          "http://api.weatherbit.io/v2.0/forecast/daily",
+          "http://api.openweathermap.org/data/2.5/forecast",
           { params }
         );
-        setWeatherData(response.data);
+        setWeatherData(response.data.list);
       } catch (err) {
         console.log(err); // Error handle for API response
       }
@@ -34,9 +31,9 @@ function Search({ lat, lon }) {
     }
   }, [lat, lon]);
 
-  const getIconUrl = (iconCode) => {
-    return `https://www.weatherbit.io/static/img/icons/${iconCode}.png`;
-  };
+  // const getIconUrl = (iconCode) => {
+  //   return `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+  // };
 
   return (
     <div>
@@ -44,37 +41,9 @@ function Search({ lat, lon }) {
         <div></div>
       ) : weatherData ? (
         <>
-          <WeatherCard
-            cityTemperature={weatherData.data[0].temp}
-            cityDescription={weatherData.data[0].weather.description}
-            cityName={weatherData.city_name}
-            date={weatherData.data[0].datetime}
-            weatherImg={getIconUrl(weatherData.data[0].weather.icon)}
-          />
-          <div className="flex justify-between">
-            {weatherData.data.slice(1, 3).map((weather, index) => (
-              <WeatherCardTile
-                key={index}
-                cityTemperature={weather.temp}
-                cityDescription={weather.weather.description}
-                cityName={weather.city_name}
-                date={weather.datetime}
-                weatherImg={getIconUrl(weather.weather.icon)}
-              />
-            ))}
-          </div>
-          <div className="flex justify-between">
-            {weatherData.data.slice(3, 5).map((weather, index) => (
-              <WeatherCardTile
-                key={index}
-                cityTemperature={weather.temp}
-                cityDescription={weather.weather.description}
-                cityName={weather.city_name}
-                date={weather.datetime}
-                weatherImg={getIconUrl(weather.weather.icon)}
-              />
-            ))}
-          </div>
+          {console.log(weatherData[0].main.temp)}
+          <p>{cityName}</p>
+          <p>{weatherData[0].main.temp}</p>
         </>
       ) : (
         <div>Unable to fetch weather data.</div>
@@ -86,11 +55,13 @@ function Search({ lat, lon }) {
 Search.propTypes = {
   lat: PropTypes.number,
   lon: PropTypes.number,
+  cityName: PropTypes.string,
 };
 
 Search.defaultProps = {
   lat: 0,
   lon: 0,
+  cityName: "",
 };
 
 export default Search;

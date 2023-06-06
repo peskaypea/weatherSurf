@@ -5,19 +5,27 @@ import NavBar from "./NavBar";
 
 const SearchForm = () => {
   const [query, setQuery] = useState("");
-  const [lat, setLat] = useState("");
-  const [lon, setLon] = useState("");
+  const [lat, setLat] = useState(0);
+  const [lon, setLon] = useState(0);
+  const [cityName, setCityName] = useState("");
 
   const fetchGeo = async () => {
+    const params = {
+      q: query,
+      apikey: import.meta.env.VITE_API_KEY,
+    };
     try {
       const response = await axios.get(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${query}&key=AIzaSyBIyET3ksgL5bSzBl8YhzW-3kpdbW_7VmQ`
+        `http://api.openweathermap.org/geo/1.0/direct`,
+        { params }
       );
-      let result = response.data.results[0].geometry.location;
+
+      let result = response.data[0];
       setLat(result.lat);
-      setLon(result.lng);
+      setLon(result.lon);
+      setCityName(result.name);
       console.log(result.lat);
-      console.log(result.lng);
+      console.log(result.lon);
     } catch (err) {
       console.log(err); // Error handle for API response
     }
@@ -81,7 +89,7 @@ const SearchForm = () => {
             <span className="sr-only">Search</span>
           </button>
         </form>
-        <Search lat={lat} lon={lon} />
+        <Search lat={lat} lon={lon} cityName={cityName} />
       </div>
     </>
   );
