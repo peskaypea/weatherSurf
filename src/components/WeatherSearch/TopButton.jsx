@@ -23,10 +23,14 @@ const TopButton = () => {
       title: "Hawaii",
     },
   ];
+
   return (
-    <div className="flex items-center justify-around my-6">
+    <div className="flex flex-wrap justify-center my-6">
       {cities.map((city) => (
-        <button key={city.id} className="text-white text-lg font-medium">
+        <button
+          key={city.id}
+          className="text-white text-sm lg:text-lg font-medium mx-2 my-2 p-2  rounded-lg"
+        >
           {city.title}
         </button>
       ))}
