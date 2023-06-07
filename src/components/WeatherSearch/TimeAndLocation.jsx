@@ -1,16 +1,12 @@
-import React from "react";
-
 const TimeAndLocation = () => {
   return (
-    <div>
-      <div className="flex items-center justify-center my-6">
-        <p className="text-white text-xl font-extralight">
-          Tuesday, 31 May 2022 | Local Time 12:46pm
-        </p>
-      </div>
-      <div className="flex items-center justify-center my-3">
-        <p className="text-white text-3xl font-bold">Berlin, DE</p>
-      </div>
+    <div className="text-center my-6">
+      <p className="font-poppins text-white text-xl font-extralight mb-3 sm:text-2xl">
+        Tuesday, 31 May 2022 | Local Time 12:46pm
+      </p>
+      <p className="font-poppins text-white text-2xl font-medium  sm:text-3xl">
+        Berlin, DE
+      </p>
     </div>
   );
 };

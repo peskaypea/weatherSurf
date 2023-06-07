@@ -5,9 +5,7 @@ export default {
   theme: {
     extend: {},
     fontFamily: {
-      sans: ["Roboto"],
-      display: ["Oswald"],
-      body: ["Open Sans"],
+      poppins: ["Poppins", "sans-serif"],
     },
   },
   plugins: [],
