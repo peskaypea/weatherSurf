@@ -3,8 +3,16 @@ import TopButton from "../components/WeatherSearch/TopButton";
 import Inputs from "../components/WeatherSearch/Inputs";
 import TimeAndLocation from "../components/WeatherSearch/TimeAndLocation";
 import TempAndDetails from "../components/WeatherSearch/TempAndDetails";
+import Forecast from "../components/WeatherSearch/Forecast";
+import getWeatherData from "../components/Services/weatherService";
 
 const WeatherWidget = () => {
+  const fetchWeather = async () => {
+    const data = await getWeatherData("weather", { q: "lisbon" });
+    console.log(data);
+  };
+  fetchWeather();
+
   return (
     <>
       <NavBar />
@@ -12,9 +20,12 @@ const WeatherWidget = () => {
         <div className="hidden sm:block">
           <TopButton />
         </div>
+
         <Inputs />
         <TimeAndLocation />
         <TempAndDetails />
+        <Forecast title="hourly forecast" />
+        <Forecast title="daily forecast" />
       </div>
     </>
   );
