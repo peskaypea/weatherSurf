@@ -1,17 +1,24 @@
+import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import TopButton from "../components/WeatherSearch/TopButton";
 import Inputs from "../components/WeatherSearch/Inputs";
 import TimeAndLocation from "../components/WeatherSearch/TimeAndLocation";
 import TempAndDetails from "../components/WeatherSearch/TempAndDetails";
 import Forecast from "../components/WeatherSearch/Forecast";
-import getWeatherData from "../components/Services/weatherService";
+import getFormattedWeatherData from "../components/Services/weatherService";
 
 const WeatherWidget = () => {
-  const fetchWeather = async () => {
-    const data = await getWeatherData("weather", { q: "lisbon" });
-    console.log(data);
-  };
-  fetchWeather();
+  const [query, setQuery] = useState({ q: "lisbon" });
+  const [units, setUnits] = useState("metric");
+  const [weather, setWeather] = useState(null);
+
+  useEffect(() => {
+    const fetchWeather = async () => {
+      const data = await getFormattedWeatherData({ q: "Lisbon" });
+      console.log(data);
+    };
+    fetchWeather();
+  }, [query, units]);
 
   return (
     <>
