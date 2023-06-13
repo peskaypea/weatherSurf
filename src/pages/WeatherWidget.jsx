@@ -9,17 +9,17 @@ import getFormattedWeatherData from "../components/Services/weatherService";
 
 const WeatherWidget = () => {
   const [query, setQuery] = useState({ q: "japan" });
-  const [units, setUnits] = useState({ unit: "metric" });
+  const [unit, setUnit] = useState({ units: "metric" });
   const [weather, setWeather] = useState(null);
 
   useEffect(() => {
     const fetchWeather = async () => {
-      await getFormattedWeatherData({ ...query, ...units }).then((data) => {
+      await getFormattedWeatherData({ ...query, ...unit }).then((data) => {
         setWeather(data);
       });
     };
     fetchWeather();
-  }, [query, units]);
+  }, [query, unit]);
 
   return (
     <div>
@@ -28,13 +28,12 @@ const WeatherWidget = () => {
         <div className="hidden sm:block">
           <TopButton />
         </div>
-
+        {weather && <TempAndDetails weather={weather} />}
         <Inputs />
         {console.log(weather)}
         {weather && (
           <div>
             <TimeAndLocation weather={weather} />
-            <TempAndDetails weather={weather} />
             <Forecast title="hourly forecast" />
             <Forecast title="daily forecast" />
           </div>
