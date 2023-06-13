@@ -42,6 +42,7 @@ const formatCurrentWeather = (data) => {
 const formatForcastWeather = (data) => {
   let { city, list } = data;
   const timezone = data.city.timezone;
+  city;
 
   // Extract daily forecast data
   const daily = list
@@ -86,16 +87,6 @@ const getFormattedWeatherData = async (searchParams) => {
 
   return { ...formattedCurrentWeather, ...formattedForecastWeather };
 };
-
-// const formatToLocalTime = (
-//   secs,
-//   zone,
-//   format = "cccc, dd LLL yyyy' | Local time: 'hh:mm a"
-// ) => {
-//   const dt = DateTime.fromSeconds(secs).toUTC(); // Convert Unix timestamp to UTC DateTime
-//   const dtLocal = dt.setZone(zone, { keepLocalTime: true }); // Set the time zone while preserving local time
-//   return dtLocal.toFormat(format); // Format the DateTime in the local time zone
-// };
 
 const formatToLocalTime = (secs, zone, format = "cccc, dd LLL yyyy'") => {
   const dt = DateTime.fromSeconds(secs).toUTC(); // Convert Unix timestamp to UTC DateTime

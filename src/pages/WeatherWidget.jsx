@@ -34,7 +34,7 @@ const WeatherWidget = () => {
         {weather && (
           <div>
             <TimeAndLocation weather={weather} />
-            <Forecast title="hourly forecast" />
+            <Forecast weather={weather} title="hourly forecast" />
             <Forecast title="daily forecast" />
           </div>
         )}
